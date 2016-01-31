@@ -8,6 +8,7 @@ from subsystems import Vision
 from subsystems import DriveMotors
 from subsystems import BNO055
 from subsystems import RangeFinder
+from subsystems import Shooter
 from oi import OI
 
 from robot_map import RobotMap
@@ -142,6 +143,7 @@ class StrongholdRobot(wpilib.IterativeRobot):
         self.omni_driving = True
         self.field_oriented = True
         self.omni_drive = omni_drive
+        self.shooter = Shooter(self)
         self.drive_motors = DriveMotors(self)
         self.oi = OI(self)
         self.range_finder = RangeFinder()
@@ -207,7 +209,6 @@ class StrongholdRobot(wpilib.IterativeRobot):
 
     def teleopPeriodic(self):
         """This function is called periodically during operator control."""
-        """
         for button, task in taskmap.items():
             # if the button for the task is pressed and the task is not already running
             if self.oi.joystick.getRawButton(button) and task not in self.running:
@@ -223,10 +224,8 @@ class StrongholdRobot(wpilib.IterativeRobot):
             except StopIteration:
                 done.append(key)
         for key in done:
-            self.running.pop(key)"""
+            self.running.pop(key)
         # self.logger.info("Teleop periodic vision: " + str(self.vision_array[0]))
-        self.drive_motors.drive(-self.oi.joystick.getThrottle())
-
 
     def testPeriodic(self):
         """This function is called periodically during test mode."""
