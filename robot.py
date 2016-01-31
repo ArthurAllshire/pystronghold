@@ -101,14 +101,6 @@ def move_with_rangefinder_and_vision(robot):
             robot.vision_array[4] = 0.0
         yield
 
-def drive_motors(robot):
-    robot.omni_driving = False
-    robot.chassis.drive(0.0, 0.0, 0.0, 0.0)
-    while not robot.omni_driving:
-        robot.drive_motors.drive(robot.oi.getThrottle() * 2.0 - 1.0)
-        robot.logger.info(robot.oi.getThrottle() * 2.0 - 1.0)
-        yield
-
 def toggle_field_oriented(robot):
     robot.field_oriented = not robot.field_oriented
     while robot.oi.joystick.getRawButton(robot.oi.field_orient_toggle_button):  # wait for 1 sec before toggling again
@@ -122,7 +114,6 @@ def reset_gyro(robot):
 taskmap = {2:reset_gyro,
            3:toggle_field_oriented,
            7:move_forward_time,
-           8:drive_motors,
            9:strafe_with_vision,
            10:move_with_rangefinder,
            11:move_with_rangefinder_and_vision}
