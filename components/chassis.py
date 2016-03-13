@@ -52,7 +52,7 @@ class Chassis:
     range_finder = RangeFinder
     heading_hold_pid_output = BlankPIDOutput
     heading_hold_pid = PIDController
-    encoder_counts_per_metre = 1.0
+    encoder_counts_per_metre = 512.0
 
     def __init__(self):
         super().__init__()
@@ -160,9 +160,7 @@ class Chassis:
         for module in self._modules.values():
             distances += abs(module.distance) / module.drive_counts_per_metre
         return distances / len(self._modules)"""
-        distances = [self.encoder_a.get(), self.encoder_b.get()]
-        for distance in distances:
-            distance = distance / Chassis.encoder_counts_per_metre
+        distances = [abs(self.encoder_a.get()/Chassis.encoder_counts_per_metre), abs(self.encoder_b.get()/Chassis.encoder_counts_per_metre)]
         return sum(distances)/len(distances)
 
     def drive(self, vX, vY, vZ, absolute=False):
@@ -233,6 +231,9 @@ class Chassis:
                         y = 0.1
                     elif y < -0.1:
                         y = -0.1
+                # TEMPORARY FIX FOR POTATOBOT - SWAP AXIS
+                x=y
+                y=0.0
                 self.distance_pid.disable()
                 self.zero_encoders()
                 self.distance_pid_heading = math.atan2(y, x)        
