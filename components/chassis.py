@@ -165,10 +165,10 @@ class Chassis:
 
         #these mappings assuming that +ve wheel rotation is ccw
         #for a standard tank drive
-        mA = vX - vZ
-        mB = vX - vZ
-        mC = -vX - vZ
-        mD = -vX - vZ
+        mA = -vX + vZ
+        mB = -vX + vZ
+        mC = vX + vZ
+        mD = vX + vZ
         motor_values = [mA, mB, mC, mD]
 
         # scale between 0 and 1

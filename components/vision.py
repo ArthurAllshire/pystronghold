@@ -147,7 +147,7 @@ def setup_capture(device_idx=-1):
     if device_idx < 0:
         device_string = str(0)
     v4l2_str = "v4l2-ctl -d /dev/video" + device_string + " -c exposure_auto=1 -c exposure_auto_priority=0 -c exposure_absolute=" \
-            + str(Vision.video_exposure) + " -c white_balance_temperature_auto=0 -c white_balance_temperature=" + str(Vision.video_white_balance)
+            + str(Vision.video_exposure)# + " -c white_balance_temperature_auto=1 -c white_balance_temperature=" + str(Vision.video_white_balance)
     print(v4l2_str)
     os.system(v4l2_str)
     # On the Logitech C920 the following options cannot be set:

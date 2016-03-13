@@ -1,5 +1,5 @@
 
-from wpilib import CANTalon, PowerDistributionPanel
+from wpilib import CANTalon, PowerDistributionPanel, Victor
 
 from components import shooter
 
@@ -27,6 +27,7 @@ class Intake:
 
     def __init__(self):
         self._speed = 0.0
+        self.victor_motor = Victor(4)
         self.state = States.no_ball
         self.current_deque = deque([0.0] * 3, 3)  # Used to average currents over last n readings
         self.log_queue = []
@@ -140,5 +141,6 @@ class Intake:
 
         if self.state != States.pinned:
             self.intake_motor.set(self._speed*Intake.max_speed)
+            self.victor_motor.set(-self._speed)
 
         self.previous_velocity = velocity
